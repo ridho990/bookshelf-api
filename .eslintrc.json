@@ -21,6 +21,7 @@
 		"new-cap": ["error", { "capIsNew": false }],
 		"max-len": ["error", { "code": 180 }],
 		"no-tabs": ["error", { "allowIndentationTabs": true }],
-		"space-before-function-paren": 0
+		"space-before-function-paren": 0,
+		"ObjectExpression": { "multiline": true, "minProperties": 1 }
 	}
 }
