@@ -1,10 +1,18 @@
 const { nanoid } = require('nanoid');
 const books = require('./books');
 
+const isValueExist = (value) => {
+	return value !== undefined;
+};
+
+const isValueNoExist = (value) => {
+	return value === undefined;
+};
+
 const addBookHandler = (request, h) => {
 	const { name, year, author, summary, publisher, pageCount, readPage, reading } = request.payload;
 
-	if (name === undefined) {
+	if (isValueNoExist(name)) {
 		const response = h
 			.response({
 				status: 'fail',
@@ -95,17 +103,17 @@ const viewAllBooksHandler = (request, h) => {
 	let filteredBooks = books;
 
 	// Find book with name query
-	if (name !== undefined) {
+	if (isValueExist(name)) {
 		filteredBooks = books.filter((book) => book.name.toLowerCase().includes(name.toLowerCase()));
 	}
 
 	// Find reading book with reading query
-	if (reading !== undefined) {
+	if (isValueExist(reading)) {
 		filteredBooks = books.filter((book) => Number(book.reading) === Number(reading));
 	}
 
 	// Find Finished book with finished query
-	if (finished !== undefined) {
+	if (isValueExist(finished)) {
 		filteredBooks = books.filter((book) => Number(book.finished) === Number(finished));
 	}
 
@@ -131,10 +139,10 @@ const viewAllBooksHandler = (request, h) => {
 
 const detailBookwithIdHandler = (request, h) => {
 	const { bookId } = request.params;
-	// Ambil buku berdasarkan nilai ID (jika gak gak ketemu nilainya -1)
+	// Ambil buku berdasarkan nilai ID
 	const book = books.filter((book_) => book_.id === bookId)[0];
 
-	if (book !== undefined) {
+	if (isValueExist(book)) {
 		const response = h.response({
 			status: 'success',
 			error: false,
@@ -160,7 +168,7 @@ const editBookwithIdHandler = (request, h) => {
 	const { bookId } = request.params;
 	const { name, year, author, summary, publisher, pageCount, readPage, reading } = request.payload;
 
-	if (name === undefined) {
+	if (isValueNoExist(name)) {
 		const response = h.response({
 			status: 'fail',
 			error: true,
