@@ -1,13 +1,9 @@
 const { nanoid } = require('nanoid');
 const books = require('./books');
 
-const isValueExist = (value) => {
-	return value !== undefined;
-};
+const isValueExist = (value) => value !== undefined;
 
-const isValueNoExist = (value) => {
-	return value === undefined;
-};
+const isValueNoExist = (value) => value === undefined;
 
 const addBookHandler = (request, h) => {
 	const { name, year, author, summary, publisher, pageCount, readPage, reading } = request.payload;
